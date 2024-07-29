@@ -5,6 +5,7 @@ import { join } from 'path';
 import * as LocalSession from 'telegraf-session-local';
 import { AppService } from './app.service';
 import { AppUpdate } from './app.update';
+import { TaskEntity } from './task.entity';
 const session = new LocalSession({ database: 'session_db.json' });
 
 @Module({
@@ -16,14 +17,15 @@ const session = new LocalSession({ database: 'session_db.json' });
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5433,
-      database: 'todo-app-tg-bot',
+      port: 5432,
+      database: 'tg-bot',
       username: 'postgres',
-      password: '',
+      password: 'Flefgame123',
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       migrations: [join(__dirname, '**', '*.migration.{ts,js}')],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([TaskEntity]),
   ],
   providers: [AppService, AppUpdate],
 })
